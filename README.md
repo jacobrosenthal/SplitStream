@@ -1,20 +1,17 @@
-#SplitStream
+#TapStream
 
-Split an Arduino stream writes (like Serial) into 2 streams
-
-##Note
-This libarary is very much in beta. It hasn't been fully tested nor are all Serial class methods implemented yet.
+Man in the middle reads and writes to an Arduino Stream object. Usefule for logging and debugging. For read and write char, you can enable TAPSTREAM_DEBUG in TapStream.cpp to print as hex with w: or r: prepended before the operation for more useful logging.
 
 ##Install
 As usual, download zip, unzip and rename to remove the dash character and place in your Arduino Libraries folder, on MacOSX ~/Documents/Arduino/libraries/
 
 ##Use
-Create a split stream out of 2 Stream. 
+Create a tap by providing a source stream to forward all calls to, and a write and read stream to forward those operations to as well.
 ```cpp
-SplitStream splitStream(Serial, mySerial);
+TapStream tapStream(mySerial, Serial, Serial);
 ```
 
-Now everything written to splitstream will be written to both. All reads, peeks, and available are done on first stream. 
+Now reads and writes to mySerial will be pushed to Serial as well.
 ```cpp
-splitStream.write('a');
+tapStream.write('a');
 ```
