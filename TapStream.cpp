@@ -2,11 +2,50 @@
 
 #define TAPSTREAM_DEBUG 0
 
+TapStream::TapStream(Stream &_source){
+
+  this->source = &_source; 
+  this->writes = &this->nullStream;
+  this->reads = &this->nullStream;
+}
+
+TapStream::TapStream(Stream &_source, Stream &_stream, bool tapWrite){
+
+  this->source = &_source;
+  if(tapWrite){
+    this->writes = &_stream;
+    this->reads = &this->nullStream;
+  }else{
+    this->writes = &this->nullStream;
+    this->reads = &_stream;
+  }
+}
+
 TapStream::TapStream(Stream &_source, Stream &_writes, Stream &_reads){
 
   this->source = &_source; 
   this->writes = &_writes;
   this->reads = &_reads;
+}
+
+void TapStream::stopRead() {
+  this->reads = &this->nullStream;
+}
+
+void TapStream::stopWrite() {
+  this->writes = &this->nullStream;
+}
+
+void TapStream::setRead(Stream &_stream) {
+  this->reads = &_stream; 
+}
+
+void TapStream::setWrite(Stream &_stream) {
+  this->writes = &_stream; 
+}
+
+void TapStream::setSource(Stream &_stream) {
+  this->source = &_stream; 
 }
 
 int TapStream::available() {

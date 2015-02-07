@@ -2,10 +2,19 @@
 #define TapStream_h
 
 #include "Arduino.h"
+#include <NullStream.h>
 
 class TapStream : public Stream {
   public:
+    TapStream(Stream &_source);
+    TapStream(Stream &_source, Stream &_stream, bool tapWrite = true);
     TapStream(Stream &_source, Stream &_writes, Stream &_reads);
+
+    void stopRead();
+    void stopWrite();
+    void setRead(Stream &_stream);
+    void setWrite(Stream &_stream);
+    void setSource(Stream &_stream);
 
     int available();
     int peek();
@@ -43,6 +52,7 @@ class TapStream : public Stream {
     size_t println(const Printable& x);
     
   private:
+    NullStream nullStream;
     Stream* source;
     Stream* writes;
     Stream* reads;

@@ -1,12 +1,23 @@
 #include <SoftwareSerial.h>
+
+#include <NullStream.h>
 #include <TapStream.h>
 
-//connect TX and RX below together with a wire to
-//create a hadware loopback (echo)
+//you can connect TX and RX pins below together with a wire to
+//create a hadware loopback (echo) so you can sniff the reads too
 SoftwareSerial mySerial(10, 11); // RX, TX
 
-//source, writes, reads
-TapStream tapStream(mySerial, Serial, Serial);
+//You can tap the write implicitly
+TapStream tapStream(mySerial, Serial);
+
+//or explicitly
+//TapStream tapStream(mySerial, Serial, true);
+
+//or you can tap the read
+//TapStream tapStream(mySerial, Serial, false);
+
+//or you can tap both
+//TapStream tapStream(mySerial, Serial, Serial);
 
 void setup()  
 {
@@ -14,13 +25,12 @@ void setup()
 
   // set the data rate for the SoftwareSerial port
   mySerial.begin(4800);
-
-  //print something into my tapStream, itll get forwarded to
-  //mySerial, but will also print to Serial twice, once for
-  //read and once for write
-  tapStream.println("Hello, world?");
 }
 
 void loop()
 {
+  //print something into my tapStream, itll get forwarded to
+  //mySerial, but will also print to your read write taps
+  tapStream.println("Hello, world?");
+  delay(2000);
 }
