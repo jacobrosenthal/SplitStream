@@ -2,28 +2,28 @@
 
 #define TAPSTREAM_DEBUG 0
 
-TapStream::TapStream(Stream &_source){
+TapStream::TapStream(Stream &_source) {
 
-  this->source = &_source; 
+  this->source = &_source;
   this->writes = &this->nullStream;
   this->reads = &this->nullStream;
 }
 
-TapStream::TapStream(Stream &_source, Stream &_stream, bool tapWrite){
+TapStream::TapStream(Stream &_source, Stream &_stream, bool tapWrite) {
 
   this->source = &_source;
-  if(tapWrite){
+  if (tapWrite) {
     this->writes = &_stream;
     this->reads = &this->nullStream;
-  }else{
+  } else {
     this->writes = &this->nullStream;
     this->reads = &_stream;
   }
 }
 
-TapStream::TapStream(Stream &_source, Stream &_writes, Stream &_reads){
+TapStream::TapStream(Stream &_source, Stream &_writes, Stream &_reads) {
 
-  this->source = &_source; 
+  this->source = &_source;
   this->writes = &_writes;
   this->reads = &_reads;
 }
@@ -37,22 +37,22 @@ void TapStream::stopWrite() {
 }
 
 void TapStream::setRead(Stream &_stream) {
-  this->reads = &_stream; 
+  this->reads = &_stream;
 }
 
 void TapStream::setWrite(Stream &_stream) {
-  this->writes = &_stream; 
+  this->writes = &_stream;
 }
 
 void TapStream::setSource(Stream &_stream) {
-  this->source = &_stream; 
+  this->source = &_stream;
 }
 
 int TapStream::available() {
   return source->available();
 }
 
-int TapStream::peek() 
+int TapStream::peek()
 {
   return source->peek();
 }
@@ -82,7 +82,7 @@ size_t TapStream::write(uint8_t c)
 #else
   writes->write(c);
 #endif
-  return source->write(c); 
+  return source->write(c);
 }
 
 size_t TapStream::write(const char *str) {
@@ -172,7 +172,7 @@ size_t TapStream::println(const __FlashStringHelper *ifsh)
   return source->println(ifsh);
 }
 
-size_t TapStream::print(const Printable& x)
+size_t TapStream::print(const Printable &x)
 {
   writes->print(x);
   return source->print(x);
@@ -238,7 +238,7 @@ size_t TapStream::println(double num, int digits)
   return source->println(num, digits);
 }
 
-size_t TapStream::println(const Printable& x)
+size_t TapStream::println(const Printable &x)
 {
   writes->println(x);
   return source->println(x);
