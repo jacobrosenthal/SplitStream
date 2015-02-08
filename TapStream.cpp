@@ -28,6 +28,13 @@ TapStream::TapStream(Stream &_source, Stream &_writes, Stream &_reads) {
   this->reads = &_reads;
 }
 
+TapStream::~TapStream() {
+
+  this->source = 0;
+  this->writes = 0;
+  this->reads = 0;
+}
+
 void TapStream::stopRead() {
   this->reads = &this->nullStream;
 }

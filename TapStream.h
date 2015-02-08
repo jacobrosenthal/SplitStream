@@ -9,6 +9,7 @@ class TapStream : public Stream {
     TapStream(Stream &_source);
     TapStream(Stream &_source, Stream &_stream, bool tapWrite = true);
     TapStream(Stream &_source, Stream &_writes, Stream &_reads);
+    ~TapStream();
 
     void stopRead();
     void stopWrite();
