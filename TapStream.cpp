@@ -1,6 +1,6 @@
 #include <TapStream.h>
 
-#define TAPSTREAM_DEBUG 0
+// #define TAPSTREAM_DEBUG 1
 
 TapStream::TapStream(Stream &_source) {
 
