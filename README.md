@@ -1,6 +1,6 @@
 #TapStream
 
-Man in the middle reads and writes to an Arduino Stream object. Usefule for logging and debugging. For read and write char, you can uncomment TAPSTREAM_DEBUG in TapStream.cpp to print as hex with w: or r: prepended before the operation for more useful logging.
+Man in the middle reads and writes to an Arduino Stream object. Usefule for logging and debugging.
 
 ##Install
 As usual, download zip, unzip and rename to remove the dash character and place in your Arduino Libraries folder, on MacOSX ~/Documents/Arduino/libraries/
